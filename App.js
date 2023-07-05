@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import Calculator from './Calculator';
+import TextEditor from './TextEditor';
+import WeatherWidget from './WeatherWidget';
+import Toolbar from './Toolbar';
 import styles from './App.module.css';
 import osBG from './osBG.jpg';
 
@@ -21,14 +24,9 @@ function App() {
 
   return (
     <div className={styles.app} style={{ backgroundImage: `url(${osBG})` }}>
-      <div className={styles.icon} onClick={() => openApp('Text Editor')}>
-        <img src='/text.png' alt='text editor icon' />
-        <p>Text Editor</p>
-      </div>
-      <div className={styles.icon} onClick={() => openApp('Calculator')}>
-        <img src='/calc.png' alt='calculator icon' />
-        <p>Calculator</p>
-      </div>
+      <WeatherWidget className={styles.weatherWidget} />
+      
+      <Toolbar openApp={openApp} />
 
       <Modal
         isOpen={modalIsOpen}
@@ -37,7 +35,7 @@ function App() {
         contentLabel="Example Modal"
       >
         <h2>{activeApp} <button onClick={closeModal}>Close</button></h2>
-        {activeApp === 'Text Editor' && <textarea />}
+        {activeApp === 'Text Editor' && <TextEditor />}
         {activeApp === 'Calculator' && <Calculator />}
       </Modal>
     </div>
