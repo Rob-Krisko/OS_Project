@@ -1,0 +1,23 @@
+.textEditor {
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .editor {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 10px;
+    min-height: 200px;
+  }
+  
+  button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
