@@ -1,0 +1,27 @@
+.square {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    border: 1px solid #000;
+    font-size: 24px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.boardRow {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.status {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.resetButton {
+    display: block;
+    width: 100px;
+    margin: 20px auto;
+    padding: 5px;
+}
