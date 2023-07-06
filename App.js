@@ -4,6 +4,7 @@ import Calculator from './Calculator';
 import TextEditor from './TextEditor';
 import WeatherWidget from './WeatherWidget';
 import Toolbar from './Toolbar';
+import TicTacToe from './TicTacToe';
 import styles from './App.module.css';
 import osBG from './osBG.jpg';
 
@@ -25,9 +26,7 @@ function App() {
   return (
     <div className={styles.app} style={{ backgroundImage: `url(${osBG})` }}>
       <WeatherWidget className={styles.weatherWidget} />
-      
       <Toolbar openApp={openApp} />
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -37,6 +36,7 @@ function App() {
         <h2>{activeApp} <button onClick={closeModal}>Close</button></h2>
         {activeApp === 'Text Editor' && <TextEditor />}
         {activeApp === 'Calculator' && <Calculator />}
+        {activeApp === 'Tic Tac Toe' && <TicTacToe />}
       </Modal>
     </div>
   );
