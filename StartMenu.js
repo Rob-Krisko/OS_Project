@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function StartMenu({ openApp }) {
     const style = {
@@ -21,12 +21,22 @@ function StartMenu({ openApp }) {
         padding: 0
     };
 
+    const [gamesOpen, setGamesOpen] = useState(false);
+
+    const toggleGames = () => {
+        setGamesOpen(!gamesOpen);
+    };
+
     return (
         <div style={style}>
             <ul style={ulStyle}>
                 <li style={liStyle} onClick={() => openApp('Text Editor')}>Text Editor</li>
                 <li style={liStyle} onClick={() => openApp('Calculator')}>Calculator</li>
-                {/* Add more apps as needed */}
+                <li style={liStyle} onClick={toggleGames}>Games</li>
+                {gamesOpen && <ul style={ulStyle}>
+                    <li style={liStyle} onClick={() => openApp('Tic Tac Toe')}>Tic Tac Toe</li>
+                    {/* Add more games as needed */}
+                </ul>}
             </ul>
         </div>
     );
