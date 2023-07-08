@@ -1,23 +1,27 @@
-/* Maze.module.css */
+/* maze.module.css */
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.row {
-  display: flex;
-}
-
-.cell {
-  width: 20px;
-  height: 20px;
-  background-color: black;
-  display: inline-block;
-}
-
-.player {
-  background-color: red;
-  font-weight: bold;
-}
+    display: grid;
+    grid-template-columns: repeat(16, 1fr); /* Adjust the number based on your maze size */
+    gap: 2px; /* Adjust the gap size as needed */
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+  
+  .cell {
+    width: 50px; /* Adjust the width and height as needed */
+    height: 50px;
+    background-color: #fff;
+  }
+  
+  .wall {
+    background-color: #000;
+  }
+  
+  .player {
+    background-color: green;
+  }
+  
+  .enemy {
+    background-color: red;
+  }

@@ -35,6 +35,7 @@ function StartMenu({ openApp }) {
                 <li style={liStyle} onClick={toggleGames}>Games</li>
                 {gamesOpen && <ul style={ulStyle}>
                     <li style={liStyle} onClick={() => openApp('Tic Tac Toe')}>Tic Tac Toe</li>
+                    <li style={liStyle} onClick={() => openApp('Maze')}>Maze</li>
                     {/* Add more games as needed */}
                 </ul>}
             </ul>

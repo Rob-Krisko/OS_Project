@@ -7,6 +7,7 @@ import Toolbar from './Toolbar';
 import TicTacToe from './TicTacToe';
 import styles from './App.module.css';
 import osBG from './osBG.jpg';
+import Maze from './Maze';
 
 Modal.setAppElement('#root');
 
@@ -37,6 +38,7 @@ function App() {
         {activeApp === 'Text Editor' && <TextEditor />}
         {activeApp === 'Calculator' && <Calculator />}
         {activeApp === 'Tic Tac Toe' && <TicTacToe />}
+        {activeApp === 'Maze' && <Maze />}
       </Modal>
     </div>
   );

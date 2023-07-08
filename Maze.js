@@ -1,116 +1,124 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Maze.module.css';
+import styles from './Maze.module.css'; // Import the CSS module
 
 const Maze = () => {
-  const [maze, setMaze] = useState([]);
-  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0 });
+  const maze = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 1 represents a wall
+    [1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], //5
+    [1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1], //10
+    [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+    [1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1], //15
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+  ];
 
-  // Generate a random maze using recursive backtracking
-  useEffect(() => {
-    const generateMaze = () => {
-      const width = 20; // Width of the maze
-      const height = 20; // Height of the maze
 
-      // Initialize the maze grid with walls
-      const mazeData = Array.from(Array(height), () => Array(width).fill(1));
 
-      const backtrack = (x, y) => {
-        const directions = [
-          [0, -2], // Up
-          [2, 0], // Right
-          [0, 2], // Down
-          [-2, 0], // Left
-        ];
+  const [playerPos, setPlayerPos] = useState({ x: 1, y: 1 });
+  const [enemyPos, setEnemyPos] = useState(getRandomPosition());
 
-        // Randomly shuffle the directions
-        for (let i = directions.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [directions[i], directions[j]] = [directions[j], directions[i]];
-        }
+  function getRandomPosition() {
+    let x, y;
+    do {
+      x = Math.floor(Math.random() * maze[0].length);
+      y = Math.floor(Math.random() * maze.length);
+    } while (maze[y][x] !== 0); // Keep generating random positions until an empty space is found
 
-        for (let [dx, dy] of directions) {
-          const nx = x + dx;
-          const ny = y + dy;
+    return { x, y };
+  }
 
-          if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-            if (mazeData[ny][nx] === 1) {
-              // Remove the wall between the current cell and the next cell
-              mazeData[y + dy / 2][x + dx / 2] = 0;
-              mazeData[ny][nx] = 0;
-
-              // Recursively backtrack from the next cell
-              backtrack(nx, ny);
-            }
-          }
-        }
-      };
-
-      // Start generating the maze from the top-left corner
-      backtrack(0, 0);
-
-      // Set the generated maze
-      setMaze(mazeData);
-    };
-
-    generateMaze();
-  }, []);
-
-  const handleKeyDown = (e) => {
-    // Move the player based on the arrow keys
-    const { key } = e;
-    let { x, y } = playerPosition;
+  const handleKeyPress = (event) => {
+    const { key } = event;
+    const { x: playerX, y: playerY } = playerPos;
+    let newPlayerPos = { x: playerX, y: playerY };
+    let newEnemyPos = { ...enemyPos };
 
     switch (key) {
       case 'ArrowUp':
-        if (maze[y - 1] && maze[y - 1][x] === 0) {
-          y--;
-        }
+        newPlayerPos = { x: playerX - 1, y: playerY };
         break;
       case 'ArrowDown':
-        if (maze[y + 1] && maze[y + 1][x] === 0) {
-          y++;
-        }
+        newPlayerPos = { x: playerX + 1, y: playerY };
         break;
       case 'ArrowLeft':
-        if (maze[y][x - 1] === 0) {
-          x--;
-        }
+        newPlayerPos = { x: playerX, y: playerY - 1 };
         break;
       case 'ArrowRight':
-        if (maze[y][x + 1] === 0) {
-          x++;
-        }
+        newPlayerPos = { x: playerX, y: playerY + 1 };
         break;
       default:
         return;
     }
 
-    setPlayerPosition({ x, y });
+    if (maze[newPlayerPos.y][newPlayerPos.x] !== 1) {
+      setPlayerPos(newPlayerPos);
+      newEnemyPos = moveEnemyTowardsPlayer(newPlayerPos, newEnemyPos);
+      setEnemyPos(newEnemyPos);
+    }
+
+    if (maze[newPlayerPos.y][newPlayerPos.x] === 2) {
+      alert('Congratulations! You escaped!');
+      // Additional actions upon winning the game
+    }
+    if (newPlayerPos.x === newEnemyPos.x && newPlayerPos.y === newEnemyPos.y) {
+      alert('Game over!');
+    }
+  };
+
+  
+  const moveEnemyTowardsPlayer = (playerPos, enemyPos) => {
+    const { x: playerX, y: playerY } = playerPos;
+    const { x: enemyX, y: enemyY } = enemyPos;
+
+    const diffX = playerX - enemyX;
+    const diffY = playerY - enemyY;
+
+    let newEnemyPos = { ...enemyPos };
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      newEnemyPos.x += Math.sign(diffX);
+    } else {
+      newEnemyPos.y += Math.sign(diffY);
+    }
+
+    if (maze[newEnemyPos.y][newEnemyPos.x] !== 1) {
+      return newEnemyPos;
+    }
+
+    return enemyPos;
   };
 
   useEffect(() => {
-    // Attach event listener for keyboard input
-    window.addEventListener('keydown', handleKeyDown);
+    const interval = setInterval(() => {
+      const newEnemyPos = moveEnemyTowardsPlayer(playerPos, enemyPos);
+      setEnemyPos(newEnemyPos);
+    }, 500); // Adjust the interval to control the enemy movement speed
 
-    return () => {
-      // Clean up event listener
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [playerPosition]);
+    return () => clearInterval(interval);
+  }, [playerPos, enemyPos]);
 
   return (
-    <div className={styles.container}>
-      {maze.map((row, y) => (
-        <div key={y} className={styles.row}>
-          {row.map((cell, x) => (
+    <div tabIndex="0" onKeyDown={handleKeyPress} className={styles.container}>
+      {maze.map((row, rowIndex) => (
+        <div key={rowIndex}>
+          {row.map((cell, columnIndex) => (
             <div
-              key={x}
-              className={`${styles.cell} ${cell === 1 ? '' : styles.path}`}
-            >
-              {x === playerPosition.x && y === playerPosition.y && (
-                <div className={styles.player}>P</div>
-              )}
-            </div>
+              key={columnIndex}
+              className={`${styles.cell} ${
+                cell === 1 ? styles.wall : ''
+              } ${playerPos.x === columnIndex && playerPos.y === rowIndex ? styles.player : ''} ${
+                enemyPos.x === columnIndex && enemyPos.y === rowIndex ? styles.enemy : ''
+              }`}
+            ></div>
           ))}
         </div>
       ))}
