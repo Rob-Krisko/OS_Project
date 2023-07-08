@@ -1,0 +1,22 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* adjust for maze size */
+    gap: 2px; /* Adjust the gap as needed */
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+  
+  .cell {
+    width: 50px; /* Adjust the width and height as needed */
+    height: 50px;
+    background-color: #fff;
+  }
+  
+  .wall {
+    background-color: #000;
+  }
+  
+  .player {
+    background-color: #ff0000;
+  }
+  
