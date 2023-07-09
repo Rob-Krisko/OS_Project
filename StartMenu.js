@@ -32,6 +32,7 @@ function StartMenu({ openApp }) {
             <ul style={ulStyle}>
                 <li style={liStyle} onClick={() => openApp('Text Editor')}>Text Editor</li>
                 <li style={liStyle} onClick={() => openApp('Calculator')}>Calculator</li>
+                <li style={liStyle} onClick={() => openApp('ToDo')}>ToDo</li>
                 <li style={liStyle} onClick={toggleGames}>Games</li>
                 {gamesOpen && <ul style={ulStyle}>
                     <li style={liStyle} onClick={() => openApp('Tic Tac Toe')}>Tic Tac Toe</li>
