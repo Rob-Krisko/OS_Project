@@ -9,7 +9,7 @@ function WeatherWidget(props) {
     const [city, setCity] = useState('Atlanta');  // Atlanta is the default city
 
     const fetchWeather = useCallback(() => {
-        axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+        axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=imperial`)
             .then((response) => {
                 const weatherData = {
                     temperature: response.data.main.temp,
@@ -43,7 +43,7 @@ function WeatherWidget(props) {
                 <button type='submit'>Update</button>
             </form>
             <img src={weather.icon} alt={weather.description} />
-            <p>{weather.temperature}°C</p>
+            <p>{weather.temperature}°F</p>
             <p>{weather.description}</p>
         </div>
     );
