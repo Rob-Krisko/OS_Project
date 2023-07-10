@@ -5,6 +5,8 @@ import TextEditor from './TextEditor';
 import WeatherWidget from './WeatherWidget';
 import Toolbar from './Toolbar';
 import TicTacToe from './TicTacToe';
+import GuessingGame from './Guessing';
+import Battleship from './Battleship';
 import styles from './App.module.css';
 import osBG from './osBG.jpg';
 import Maze from './Maze';
@@ -40,6 +42,8 @@ function App() {
         {activeApp === 'Calculator' && <Calculator />}
         {activeApp === 'ToDo' && <Todo />}
         {activeApp === 'Tic Tac Toe' && <TicTacToe />}
+        {activeApp === 'Guessing Game' && <GuessingGame />}
+        {activeApp === 'Battleship' && <Battleship />}
         {activeApp === 'Maze' && <Maze />}
       </Modal>
     </div>
